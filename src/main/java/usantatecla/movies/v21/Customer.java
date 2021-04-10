@@ -24,14 +24,12 @@ public class Customer {
 	}
 
 	public String statement() {
-		Iterator<Rental> rentals = this.rentals.iterator();
 		String result = "Rental Record for " + this.getName() + "\n";
-		while (rentals.hasNext()) {
-			Rental each = rentals.next();
-			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
+		for (Rental rental: this.rentals) {
+			result += "\t" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "\n";
 		}
-		result += "Amount owed is " + String.valueOf(this.getTotalCharge()) + "\n";
-		result += "You earned " + String.valueOf(this.getTotalFrequentRenterPoints()) + " frequent renter points";
+		result += "Amount owed is " + this.getTotalCharge() + "\n";
+		result += "You earned " + this.getTotalFrequentRenterPoints() + " frequent renter points";
 		return result;
 	}
 
