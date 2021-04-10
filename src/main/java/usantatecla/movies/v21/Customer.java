@@ -37,20 +37,16 @@ public class Customer {
 
 	private double getTotalCharge() {
 		double result = 0;
-		Iterator<Rental> rentals = this.rentals.iterator();
-		while (rentals.hasNext()) {
-			Rental each = rentals.next();
-			result += each.getCharge();
+		for (Rental rental : this.rentals) {
+			result += rental.getCharge();
 		}
 		return result;
 	}
 	
 	private int getTotalFrequentRenterPoints() {
 		int result = 0;
-		Iterator<Rental> rentals = this.rentals.iterator();
-		while (rentals.hasNext()) {
-			Rental each = rentals.next();
-			result += each.getFrequentRenterPoints();
+		for (Rental rental : this.rentals) {
+			result += rental.getFrequentRenterPoints();
 		}
 		return result;
 	}
