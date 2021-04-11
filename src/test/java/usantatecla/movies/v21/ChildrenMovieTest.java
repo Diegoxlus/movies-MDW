@@ -1,53 +1,62 @@
 package usantatecla.movies.v21;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class ChildrenMovieTest {
 
-    @Test
-    public void childrensRental1DayTest() {
-        String movieName = "movieName";
-        ChildrenMovie movie = new ChildrenMovie(movieName);
-        Rental rental = new RentalBuilder().movie(movie).daysRented(1).build();
-        String customerName = "customerName";
-        Customer customer = new CustomerBuilder().name(customerName).rental(rental).build();
+    private static final String MOVIE_NAME = "movieName";
+    private static final String CUSTOMER_NAME = "customerName";
 
-        String statement = customer.statement();
+    private ChildrenMovie childrenMovie;
 
-        String result = new StatementBuilder().customerName(customerName).movie(movieName, 1.5)
-                .totalAmount(1.5).frequentRenterPoints(1).build();
-        assertEquals(result, statement);
+    @Before
+    public void before(){
+        this.childrenMovie = new ChildrenMovie(MOVIE_NAME);
     }
 
     @Test
-    public void childrensRental3DayTest() {
-        String movieName = "movieName";
-        ChildrenMovie movie = new ChildrenMovie(movieName);
-        Rental rental = new RentalBuilder().movie(movie).daysRented(3).build();
-        String customerName = "customerName";
-        Customer customer = new CustomerBuilder().name(customerName).rental(rental).build();
-
-        String statement = customer.statement();
-
-        String result = new StatementBuilder().customerName(customerName).movie(movieName, 1.5)
-                .totalAmount(1.5).frequentRenterPoints(1).build();
-        assertEquals(result, statement);
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental1DayThenCorrectCustomerName() {
+        String statement = getStatement(1);
+        assertEquals(CUSTOMER_NAME, new StatementData(statement).getCustomerName());
     }
 
     @Test
-    public void childrensRental4DayTest() {
-        String movieName = "movieName";
-        ChildrenMovie movie = new ChildrenMovie(movieName);
-        Rental rental = new RentalBuilder().movie(movie).daysRented(4).build();
-        String customerName = "customerName";
-        Customer customer = new CustomerBuilder().name(customerName).rental(rental).build();
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental1DayThenCorrectMovie() {
+        String statement = getStatement(1);
+        assertEquals(MOVIE_NAME,new StatementData(statement).getTitleMovie(0));
+        assertEquals(1.5D,new StatementData(statement).getChargeMovie(0),Double.NaN);
+    }
 
-        String statement = customer.statement();
+    @Test
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental1DayThenCorrectTotalCharge() {
+        String statement = getStatement(1);
+        assertEquals(1.5D,new StatementData(statement).getTotalCharge(),Double.NaN);
+    }
 
-        String result = new StatementBuilder().customerName(customerName).movie(movieName, 6)
-                .totalAmount(6).frequentRenterPoints(1).build();
-        assertEquals(result, statement);
+    @Test
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental1DayThenCorrectRenterPoints() {
+        String statement = getStatement(1);
+        assertEquals(1,new StatementData(statement).getFrequentRenterPoints());
+    }
+
+    @Test
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental4DayThenCorrectTotalCharge() {
+        String statement = getStatement(4);
+        assertEquals(6.0D,new StatementData(statement).getTotalCharge(),Double.NaN);
+    }
+
+    @Test
+    public void testGivenCustomerStatementOfChildrenMovieWhenRental4DayThenCorrectRenterPoints() {
+        String statement = getStatement(4);
+        assertEquals(1,new StatementData(statement).getFrequentRenterPoints());
+    }
+
+    private String getStatement(int days) {
+        Rental rental = new RentalBuilder().movie(this.childrenMovie).daysRented(days).build();
+        Customer customer = new CustomerBuilder().name(CUSTOMER_NAME).rental(rental).build();
+        return customer.statement();
     }
 }

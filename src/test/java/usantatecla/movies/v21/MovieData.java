@@ -1,8 +1,8 @@
 package usantatecla.movies.v21;
 
 public class MovieData {
-    String title;
-    Double charge;
+    private String title;
+    private Double charge;
 
     public MovieData(String title, Double charge) {
         this.title = title;

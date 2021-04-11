@@ -10,7 +10,7 @@ public class StatementData {
     private static final int CHARGE_MOVIE_DATA_POSITION = 2;
     private static final int TOTAL_CHARGE_DATA_POSITION = 3;
     private static final int RENTER_POINTS_DATA_POSITION = 2;
-    private static final int FIRST_MOVIE_SENTENCE_LIMIT = 2;
+    private static final int FIRST_MOVIE_SENTENCE_LIMIT = 1;
     private static final String SPACE_CHARACTER = " ";
     private static final String END_LINE_CHARACTER = "\n";
     private static final String TABULATION_CHARACTER = "\t";
@@ -35,7 +35,7 @@ public class StatementData {
 
         this.customerName = statementLines[CUSTOMER_NAME_SENTENCE_POSITION].split(SPACE_CHARACTER)[CUSTOMER_NAME_DATA_POSITION];
 
-        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i < lastMoviesPosition; i++ ){
+        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i <= lastMoviesPosition; i++ ){
             String[] movieWords = statementLines[i].split(TABULATION_CHARACTER);
             this.movieDataList.add(new MovieData(movieWords[TITLE_MOVIE_DATA_POSITION],Double.parseDouble(movieWords[CHARGE_MOVIE_DATA_POSITION])));
         }
@@ -47,8 +47,12 @@ public class StatementData {
         return customerName;
     }
 
-    public List<MovieData> getMovieDataList() {
-        return movieDataList;
+    public String getTitleMovie(int position) {
+        return movieDataList.get(position).getTitle();
+    }
+
+    public Double getChargeMovie(int position) {
+        return movieDataList.get(position).getCharge();
     }
 
     public Double getTotalCharge() {
