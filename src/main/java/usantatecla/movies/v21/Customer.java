@@ -1,52 +1,51 @@
 package usantatecla.movies.v21;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Customer {
 
-	private String name;
-	
-	private List<Rental> rentals;
+    private final String name;
 
-	public Customer(String name) {
-		this.name = name;
-		rentals = new ArrayList<Rental>();
-	}
+    private final List<Rental> rentals;
 
-	public void addRental(Rental rental) {
-		rentals.add(rental);
-	}
+    public Customer(String name) {
+        this.name = name;
+        rentals = new ArrayList<Rental>();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void addRental(Rental rental) {
+        rentals.add(rental);
+    }
 
-	public String statement() {
-		String result = "Rental Record for " + this.getName() + "\n";
-		for (Rental rental: this.rentals) {
-			result += "\t" + rental.getTitleMovie() + "\t" + rental.getCharge() + "\n";
-		}
-		result += "Amount owed is " + this.getTotalCharge() + "\n";
-		result += "You earned " + this.getTotalFrequentRenterPoints() + " frequent renter points";
-		return result;
-	}
+    public String getName() {
+        return name;
+    }
 
-	private double getTotalCharge() {
-		double result = 0;
-		for (Rental rental : this.rentals) {
-			result += rental.getCharge();
-		}
-		return result;
-	}
-	
-	private int getTotalFrequentRenterPoints() {
-		int result = 0;
-		for (Rental rental : this.rentals) {
-			result += rental.getFrequentRenterPoints();
-		}
-		return result;
-	}
+    public String statement() {
+        String result = "Rental Record for " + this.getName() + "\n";
+        for (Rental rental : this.rentals) {
+            result += "\t" + rental.getTitleMovie() + "\t" + rental.getCharge() + "\n";
+        }
+        result += "Amount owed is " + this.getTotalCharge() + "\n";
+        result += "You earned " + this.getTotalFrequentRenterPoints() + " frequent renter points";
+        return result;
+    }
+
+    private double getTotalCharge() {
+        double result = 0;
+        for (Rental rental : this.rentals) {
+            result += rental.getCharge();
+        }
+        return result;
+    }
+
+    private int getTotalFrequentRenterPoints() {
+        int result = 0;
+        for (Rental rental : this.rentals) {
+            result += rental.getFrequentRenterPoints();
+        }
+        return result;
+    }
 
 }

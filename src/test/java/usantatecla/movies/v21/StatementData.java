@@ -15,11 +15,11 @@ public class StatementData {
     private static final String END_LINE_CHARACTER = "\n";
     private static final String TABULATION_CHARACTER = "\t";
     private String customerName;
-    private List<MovieData> movieDataList;
+    private final List<MovieData> movieDataList;
     private Double totalCharge;
     private int frequentRenterPoints;
 
-    public StatementData (String statement){
+    public StatementData(String statement) {
         this.customerName = "";
         this.movieDataList = new ArrayList<MovieData>();
         this.totalCharge = Double.NaN;
@@ -27,7 +27,7 @@ public class StatementData {
         this.segmentStatement(statement);
     }
 
-    private void segmentStatement(String statement){
+    private void segmentStatement(String statement) {
         String[] statementLines = statement.split(END_LINE_CHARACTER);
         int frequentPointsPosition = statementLines.length - 1;
         int totalChargePosition = statementLines.length - 2;
@@ -35,9 +35,9 @@ public class StatementData {
 
         this.customerName = statementLines[CUSTOMER_NAME_SENTENCE_POSITION].split(SPACE_CHARACTER)[CUSTOMER_NAME_DATA_POSITION];
 
-        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i <= lastMoviesPosition; i++ ){
+        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i <= lastMoviesPosition; i++) {
             String[] movieWords = statementLines[i].split(TABULATION_CHARACTER);
-            this.movieDataList.add(new MovieData(movieWords[TITLE_MOVIE_DATA_POSITION],Double.parseDouble(movieWords[CHARGE_MOVIE_DATA_POSITION])));
+            this.movieDataList.add(new MovieData(movieWords[TITLE_MOVIE_DATA_POSITION], Double.parseDouble(movieWords[CHARGE_MOVIE_DATA_POSITION])));
         }
         this.totalCharge = Double.parseDouble(statementLines[totalChargePosition].split(SPACE_CHARACTER)[TOTAL_CHARGE_DATA_POSITION]);
         this.frequentRenterPoints = Integer.parseInt(statementLines[frequentPointsPosition].split(SPACE_CHARACTER)[RENTER_POINTS_DATA_POSITION]);

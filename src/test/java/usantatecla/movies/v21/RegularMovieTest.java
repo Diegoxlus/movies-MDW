@@ -13,7 +13,7 @@ public class RegularMovieTest {
     private RegularMovie regularMovie;
 
     @Before
-    public void before(){
+    public void before() {
         this.regularMovie = new RegularMovie(MOVIE_NAME);
     }
 
@@ -26,32 +26,32 @@ public class RegularMovieTest {
     @Test
     public void testGivenCustomerStatementOfRegularMovieWhenRental1DayThenCorrectMovie() {
         String statement = getStatement(1);
-        assertEquals(MOVIE_NAME,new StatementData(statement).getTitleMovie(0));
-        assertEquals(2.0D,new StatementData(statement).getChargeMovie(0),Double.NaN);
+        assertEquals(MOVIE_NAME, new StatementData(statement).getTitleMovie(0));
+        assertEquals(2.0D, new StatementData(statement).getChargeMovie(0), Double.NaN);
     }
 
     @Test
     public void testGivenCustomerStatementOfRegularMovieWhenRental1DayThenCorrectTotalCharge() {
         String statement = getStatement(1);
-        assertEquals(2.0D,new StatementData(statement).getTotalCharge(),Double.NaN);
+        assertEquals(2.0D, new StatementData(statement).getTotalCharge(), Double.NaN);
     }
 
     @Test
     public void testGivenCustomerStatementOfRegularMovieWhenRental1DayThenCorrectRenterPoints() {
         String statement = getStatement(1);
-        assertEquals(1,new StatementData(statement).getFrequentRenterPoints());
+        assertEquals(1, new StatementData(statement).getFrequentRenterPoints());
     }
 
     @Test
     public void testGivenCustomerStatementOfRegularMovieWhenRental4DayThenCorrectTotalCharge() {
         String statement = getStatement(4);
-        assertEquals(5.0D,new StatementData(statement).getTotalCharge(),Double.NaN);
+        assertEquals(5.0D, new StatementData(statement).getTotalCharge(), Double.NaN);
     }
 
     @Test
     public void testGivenCustomerStatementOfRegularMovieWhenRental4DayThenCorrectRenterPoints() {
         String statement = getStatement(4);
-        assertEquals(1,new StatementData(statement).getFrequentRenterPoints());
+        assertEquals(1, new StatementData(statement).getFrequentRenterPoints());
     }
 
     private String getStatement(int days) {

@@ -2,29 +2,29 @@ package usantatecla.movies.v21;
 
 public class Rental {
 
-	private Movie movie;
-	
-	private int daysRented;
-	
-	public Rental(Movie movie, int daysRented) {
-		this.movie = movie;
-		this.daysRented = daysRented;
-	}
-	
-	public double getCharge() {
-		return movie.getCharge(daysRented);
-	}
-	
-	public int getFrequentRenterPoints() {
-		return movie.getFrequentRenterPoints(daysRented);
-	}
-	
-	public int getDaysRented() {
-		return daysRented;
-	}
+    private final Movie movie;
 
-	public String getTitleMovie() {
-		return movie.getTitle();
-	}
-	
+    private final int daysRented;
+
+    public Rental(Movie movie, int daysRented) {
+        this.movie = movie;
+        this.daysRented = daysRented;
+    }
+
+    public double getCharge() {
+        return movie.getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints() {
+        return movie.getFrequentRenterPoints(daysRented);
+    }
+
+    public int getDaysRented() {
+        return daysRented;
+    }
+
+    public String getTitleMovie() {
+        return movie.getTitle();
+    }
+
 }
