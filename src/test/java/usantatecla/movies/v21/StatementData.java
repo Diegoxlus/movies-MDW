@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatementData {
-    private static final int CUSTOMER_NAME_SENTENCE_LIMIT = 1;
+    private static final int CUSTOMER_NAME_SENTENCE_POSITION = 0;
+    private static final int CUSTOMER_NAME_DATA_POSITION = 3;
+    private static final int TITLE_MOVIE_DATA_POSITION = 1;
+    private static final int CHARGE_MOVIE_DATA_POSITION = 2;
+    private static final int TOTAL_CHARGE_DATA_POSITION = 3;
+    private static final int RENTER_POINTS_DATA_POSITION = 2;
     private static final int FIRST_MOVIE_SENTENCE_LIMIT = 2;
-    private int frequentPointsPosition;
-    private int totalChargePosition;
-    private int lastMoviesPosition;
+    private static final String SPACE_CHARACTER = " ";
+    private static final String END_LINE_CHARACTER = "\n";
+    private static final String TABULATION_CHARACTER = "\t";
     private String customerName;
     private List<MovieData> movieDataList;
     private Double totalCharge;
@@ -23,20 +28,19 @@ public class StatementData {
     }
 
     private void segmentStatement(String statement){
-        String[] x = statement.split("\n");
-        this.frequentPointsPosition = x.length-1;
-        this.totalChargePosition = x.length-2;
-        this.lastMoviesPosition = x.length-3;
+        String[] statementLines = statement.split(END_LINE_CHARACTER);
+        int frequentPointsPosition = statementLines.length - 1;
+        int totalChargePosition = statementLines.length - 2;
+        int lastMoviesPosition = statementLines.length - 3;
 
-        this.customerName = x[0].split(" ")[3];
+        this.customerName = statementLines[CUSTOMER_NAME_SENTENCE_POSITION].split(SPACE_CHARACTER)[CUSTOMER_NAME_DATA_POSITION];
 
-        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i < this.lastMoviesPosition; i++ ){
-            String[] y = x[i].split("\t");
-            MovieData movieData = new MovieData(y[1],Double.parseDouble(y[2]));
-            this.movieDataList.add(movieData);
+        for (int i = FIRST_MOVIE_SENTENCE_LIMIT; i < lastMoviesPosition; i++ ){
+            String[] movieWords = statementLines[i].split(TABULATION_CHARACTER);
+            this.movieDataList.add(new MovieData(movieWords[TITLE_MOVIE_DATA_POSITION],Double.parseDouble(movieWords[CHARGE_MOVIE_DATA_POSITION])));
         }
-        this.totalCharge = Double.parseDouble(x[this.totalChargePosition].split(" ")[3]);
-        this.frequentRenterPoints = Integer.parseInt(x[this.frequentPointsPosition].split(" ")[2]);
+        this.totalCharge = Double.parseDouble(statementLines[totalChargePosition].split(SPACE_CHARACTER)[TOTAL_CHARGE_DATA_POSITION]);
+        this.frequentRenterPoints = Integer.parseInt(statementLines[frequentPointsPosition].split(SPACE_CHARACTER)[RENTER_POINTS_DATA_POSITION]);
     }
 
     public String getCustomerName() {
